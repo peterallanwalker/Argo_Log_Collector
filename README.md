@@ -9,6 +9,8 @@ PuTTy/PSCP - Windows does not have support for SCP by default. PSCP gets install
 so get_logs.py will work on Windows machines that have PuTTy installed. Download from https://putty.org/ Alternatively, 
 if not wanting to install PuTTy, you should be able to just install pscp.exe on its own (but I've not tested that). 
 
+(Argo section processors do not currently support SFTP, hence need to use SCP)
+
 Python standard library - os, sys, subprocess, time.
 
 Local file imports - cli_utils.py, cli_arg_parser.py, settings.py
@@ -17,17 +19,19 @@ Optional - config.json
 
 
 ### Usage: 
-get_logs.py can be run with no arguments, with or without a config.json file in the same folder. 
+get_logs.py can be run with no arguments, with or without a config.json file. 
 If no arguments are passed, it will check if a config.json file exists in the same folder and contains a 
 default IP address to use. If a default address is not found, the user is prompted to enter one.
 
 pass `-h` or `--help` to get more info. 
 
 Pass an IP address when running the program to get logs from a specific IP address, 
-e.g. `python get_logs.py 192.168.24.101`. 
+e.g. `python get_logs.py 192.168.24.101`
 
 Alternatively pass a key to lookup an address from config.json, 
-e.g. `python get_logs.py 1` to use the address with the key "1" in config.json.  
+e.g. `python get_logs.py 1` to use the address with the key "1" in config.json.
+Note, the keys in config.json for IP addresses are arbitrary, you can change the keys
+to be more relatable (and add or remove address entries).
 
 Optionally pass a second argument to save the logs to a specific sub-folder, 
 e.g. `python get_logs.py 192.168.24.101 issue-1` will save the logs to a folder named "issue-1", 
@@ -44,7 +48,7 @@ saving to the same location as the script (within a sub-folder if specified from
 log files are saved within the save location / sub-folder in a folder named with the IP address of the device,
 and prefixed with a timestamp of when they were copied. 
 
-Log files to be saved / location of log files can be specified in config.json. By default, only the "live" logs are 
+Log files can be specified in config.json. By default, only the "live" logs are 
 saved. pass the argument "-a" or "--all" to copy the full archive, e.g. `python get_logs.py 192.168.24.101 -a`
 
 ## config.json
