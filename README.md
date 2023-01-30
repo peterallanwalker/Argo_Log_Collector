@@ -34,7 +34,7 @@ e.g. `python get_logs.py 192.168.24.101 issue-1` will save the logs to a folder 
 creating it if it does not already exist. If no sub-folder name is passed from the CLI the user can add 
 one when prompted to confirm the save location.
 
-preferred and alternative save locations can be specified in config.json. The default config.json file defaults 
+Preferred and alternative save locations can be specified in config.json. The default config.json file defaults 
 to Product Test's "Logs & Attachments" folder on the Calrec network, so e.g. `python get_logs.py 192.168.24.101 CE-1234`
 would save to a location with the bug ticket reference of "CE-1234", creating the folder if it does not exist. 
 If the preferred save location does not exist or is not accessible (e.g not connected to the network) 
