@@ -1,6 +1,10 @@
-# Argo Log Collector
+#Argo Log Collector
 
-get_logs.py
+##get_logs.py - The main script, copies log files from Argo systems.
+
+A Python3 script, tested on Windows 10/11.
+
+Script can be run with no arguments and user will be prompted for input.
 
 Gets log files from Argo surface section processors
 
@@ -29,3 +33,6 @@ Pass an IP address or a key
 
 settings.py
 Settings handler, loads config settings from separate JSON file, with user input/prompt & validation
+
+## TODO
+[.] compile an .exe
