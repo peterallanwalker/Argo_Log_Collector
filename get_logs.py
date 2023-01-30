@@ -17,6 +17,7 @@ TITLE = "Argo Log Collector"
 VERSION = 0.7
 
 USER = 'root'
+LIVE_LOG_LOCATION = '/var/lib/calrec/log/live'
 
 # - External configuration file
 CONFIG = 'config.json'
@@ -56,7 +57,16 @@ def get_address(cli_args, conf):
 
 def get_log_location(cli_args, conf):
     if cli_args.all:
-        return
+        try:
+            return conf["logs_to_get"]["all"]
+        except KeyError as e:
+            print(f'key error in {CONFIG}, cannot find {e}')
+    try:
+        return conf["logs_to_get"]["live"]
+    except KeyError as e:
+        print(f'key error in {CONFIG}, cannot find {e}')
+
+    return LIVE_LOG_LOCATION
 
 
 if __name__ == '__main__':
@@ -85,8 +95,8 @@ if __name__ == '__main__':
     save_to += "\\" + args.folder
 
     # - Get user to confirm
-    if cli_utils.yes_or_no(input(f'Get logs from: {address}:{log_location} \nSave to: {save_to} '
-                                 f'\nConfirm: (y/n): ')):
+    if cli_utils.user_confirm(f'Get logs from: {address}:{log_location} \nSave to: {save_to} '
+                              f'\nConfirm: (y/n): '):
 
         # - If the sub-folder does not exist, create it
         if not os.path.exists(save_to):
@@ -114,7 +124,7 @@ if __name__ == '__main__':
             # TODO, if scp is using an underlying ssh lib, make sure my ssh module does not create a naming conflict
             sys.exit()
 
-        if cli_utils.yes_or_no(input("View in explorer? (y/n): ")):
+        if cli_utils.user_confirm("View in explorer? (y/n): "):
             # - Open file explorer, showing the folder just copied
             subprocess.Popen(f'explorer {save_as}')
     else:
