@@ -27,7 +27,7 @@ Pass an IP address when running the program to get logs from a specific IP addre
 e.g. `python get_logs.py 192.168.24.101`. 
 
 Alternatively pass a key to lookup an address from config.json, 
-e.g. `python get_logs.py default` to use the address with the key "default" in config.json.  
+e.g. `python get_logs.py 1` to use the address with the key "1" in config.json.  
 
 Optionally pass a second argument to save the logs to a specific sub-folder, 
 e.g. `python get_logs.py 192.168.24.101 issue-1` will save the logs to a folder named "issue-1", 
