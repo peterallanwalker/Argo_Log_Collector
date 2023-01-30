@@ -14,7 +14,7 @@ import settings
 
 
 TITLE = "Argo Log Collector"
-VERSION = 0.7
+VERSION = 1.0
 
 USER = 'root'
 LIVE_LOG_LOCATION = '/var/lib/calrec/log/live'
@@ -65,7 +65,7 @@ def get_log_location(cli_args, conf):
         return conf["logs_to_get"]["live"]
     except KeyError as e:
         print(f'key error in {CONFIG}, cannot find {e}')
-
+    # If cannot parse from settings use default
     return LIVE_LOG_LOCATION
 
 
@@ -82,6 +82,8 @@ if __name__ == '__main__':
 
     if save_to == '.':
         save_to = os.getcwd()  # Just so we can inform the user of the full path to the local folder
+        
+    save_to = os.path.realpath(save_to) # Fix back/forward slashes
 
     # Get target device's IP address
     address = get_address(args, config)
@@ -92,11 +94,13 @@ if __name__ == '__main__':
     if not args.folder:
         args.folder = input(f'Save logs to (enter or add existing or new sub folder): {save_to}\\')
 
+   
     save_to += "\\" + args.folder
+    #save_to += "/" + args.folder # check - windows slash
 
     # - Get user to confirm
     if cli_utils.user_confirm(f'Get logs from: {address}:{log_location} \nSave to: {save_to} '
-                              f'\nConfirm: (y/n): '):
+                              f'\nConfirm '):
 
         # - If the sub-folder does not exist, create it
         if not os.path.exists(save_to):
@@ -124,7 +128,7 @@ if __name__ == '__main__':
             # TODO, if scp is using an underlying ssh lib, make sure my ssh module does not create a naming conflict
             sys.exit()
 
-        if cli_utils.user_confirm("View in explorer? (y/n): "):
+        if cli_utils.user_confirm("View in explorer? "):
             # - Open file explorer, showing the folder just copied
             subprocess.Popen(f'explorer {save_as}')
     else:
