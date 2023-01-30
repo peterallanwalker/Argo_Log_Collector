@@ -19,7 +19,7 @@ VERSION = 0.7
 USER = 'root'
 LIVE_LOG_LOCATION = '/var/lib/calrec/log/live'
 
-# - External configuration file
+#  - External configuration file
 CONFIG = 'config.json'
 
 
