@@ -60,7 +60,7 @@ def ask_ip_address(device):
 def load_settings(config_file):
     """
     Check if configuration file exists
-    :return: Dict of settings or None if no settings file found or cannot be parsed
+    :return: Dict of settings (empty if settings file cannot be found or parsed)
     """
     try:
         with open(config_file, "r") as config:

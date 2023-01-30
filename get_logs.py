@@ -37,7 +37,7 @@ def get_address(cli_args, conf):
         # If no default address in config, get user to input one
         return settings.ask_ip_address("target device")
 
-    # Else check if user passed a valid IP address as an argument
+    # Else user has passed an argument, let's see if it's a valid IP address
     if settings.validate_ip_address(cli_args.address):
         return cli_args.address
     # Else check if they passed a valid key to lookup and address from json config file
