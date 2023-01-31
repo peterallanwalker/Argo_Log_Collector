@@ -80,4 +80,9 @@ Some CLI formatting and user input handling
   
   https://www.putorius.net/automatically-accept-ssh-fingerprint.html
 
+```[mcherisi@putor ~]$ ssh -o "StrictHostKeyChecking no" fenrir
+Warning: Permanently added 'fenrir,10.0.0.5' (ECDSA) to the list of known hosts.
+ok
+[mcherisi@Fenrir ~]$ ```
+
   

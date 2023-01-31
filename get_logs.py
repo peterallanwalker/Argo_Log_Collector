@@ -40,7 +40,7 @@ def get_address(cli_args, conf):
     # Else user has passed an argument, let's see if it's a valid IP address
     if settings.validate_ip_address(cli_args.address):
         return cli_args.address
-    # Else check if they passed a valid key to lookup and address from json config file
+    # Else check if they passed a valid key to lookup an address from json config file
     try:
         if settings.validate_ip_address(conf['addresses'][cli_args.address]):
             return conf['addresses'][cli_args.address]
@@ -70,7 +70,7 @@ def get_log_location(cli_args, conf):
 
 
 def copy_to_clipboard(txt):
-    # This is probably Windows only, could use pyperclip but then relies on installing an external non-standard lib
+    # This is probably Windows only, could use pyperclip but not relying on external non-standard libs in this so far
     cmd = 'echo ' + txt.strip() + ' | clip'
     try:
         subprocess.check_call(cmd, shell=True)
@@ -119,6 +119,17 @@ if __name__ == '__main__':
 
         scp_command = 'scp -r '  # - Use '-r' "recursive" to be able to transfer folders/contents not just a single file
         scp_command += USER + '@' + address + ":" + log_location + " " + save_as
+
+        # TODO - TEST, override manual key acceptance (might only work on ssh not scp),
+        #        Need to connect to new IP address or a device on an address that was last used to connect with a
+        #        different device that had that same address
+        print("TEST! line 127")
+        scp_command = '-o "StrictHostKeyChecking no"' + scp_command
+
+        # TODO - figure out how to auto-enter password, can with ssh so maybe ssh in and run scp on opposite end
+        #        ...  but will then need need to enter local windows credentials...
+        #        Need sftp, or maybe just read file contents using cat or something linux via ssh and copy output...
+        #        would be interesting to see how much slower it is?
 
         try:
             # Send SCP command from windows to copy target folder to local location
