@@ -69,7 +69,6 @@ Setup for Python argparse library to handle CLI arguments
 Some CLI formatting and user input handling
 
 ## TODO
-- [ ] Copy save path to clipboard
 - [ ] Compile get_logs.py as a .exe to run on machines without Python
 - [ ] Consider Python Paramiko & SCP libraries instead of depending on PuTTy, 
   then can auto-accept key changes and might be able to auto-enter password for scp transfer
