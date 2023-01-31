@@ -74,9 +74,9 @@ def copy_to_clipboard(txt):
     cmd = 'echo ' + txt.strip() + ' | clip'
     try:
         subprocess.check_call(cmd, shell=True)
+        print("save location path is copied to your clipboard (control+v it into Jira!)")
     except:
         print("failed to copy to clipboard, what OS is this?")
-
 
 
 if __name__ == '__main__':
@@ -104,9 +104,7 @@ if __name__ == '__main__':
     if not args.folder:
         args.folder = input(f'Save logs to (enter or add existing or new sub folder): {save_to}\\')
 
-   
     save_to += "\\" + args.folder
-    #save_to += "/" + args.folder # check - windows slash
 
     # - Get user to confirm
     if cli_utils.user_confirm(f'Get logs from: {address}:{log_location} \nSave to: {save_to} '
@@ -117,7 +115,6 @@ if __name__ == '__main__':
             os.makedirs(save_to)
 
         timestamp = time.strftime('%Y-%m-%d_%H-%M', time.localtime())
-        #save_as = ('"'+save_to+'"')  # Wrapping the full path in quotes works
         save_as = '"' + os.path.realpath(save_to + "/" + address + "__" + timestamp) + '"'
 
         scp_command = 'scp -r '  # - Use '-r' "recursive" to be able to transfer folders/contents not just a single file
@@ -125,8 +122,6 @@ if __name__ == '__main__':
 
         try:
             # Send SCP command from windows to copy target folder to local location
-            # TO TEST without a remote device to SCP:
-            #open(save_as, 'a')
             # subprocess.check_output(scp_command, shell=True)  # TODO check the shell=True part needed/purpose
             subprocess.check_output(scp_command)
             # If successful, user will be prompted to accept/trust (if different address to last time),
@@ -138,9 +133,12 @@ if __name__ == '__main__':
             # TODO, if scp is using an underlying ssh lib, make sure my ssh module does not create a naming conflict
             sys.exit()
 
+        copy_to_clipboard(save_as)
+
         if cli_utils.user_confirm("View in explorer? "):
             # - Open file explorer, showing the folder just copied
             subprocess.Popen(f'explorer {save_as}')
     else:
         print("Cancelled transfer")
         sys.exit()
+
