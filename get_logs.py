@@ -69,6 +69,16 @@ def get_log_location(cli_args, conf):
     return LIVE_LOG_LOCATION
 
 
+def copy_to_clipboard(txt):
+    # This is probably Windows only, could use pyperclip but then relies on installing an external non-standard lib
+    cmd = 'echo ' + txt.strip() + ' | clip'
+    try:
+        subprocess.check_call(cmd, shell=True)
+    except:
+        print("failed to copy to clipboard, what OS is this?")
+
+
+
 if __name__ == '__main__':
     cli_utils.print_header(TITLE, VERSION)
 
