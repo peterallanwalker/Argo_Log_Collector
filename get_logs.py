@@ -124,7 +124,8 @@ if __name__ == '__main__':
             # Send SCP command from windows to copy target folder to local location
             # subprocess.check_output(scp_command, shell=True)  # TODO check the shell=True part needed/purpose
             subprocess.check_output(scp_command)
-            # If successful, user will be prompted to accept/trust (if different address to last time),
+            # If successful, user may be prompted to accept/trust
+            # (if the IP address had a different MAC address last time?),
             # and to enter password... I don't seem to be able to do either automatically using subprocess.check_output
             print('Done.')
 
