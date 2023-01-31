@@ -51,6 +51,9 @@ and prefixed with a timestamp of when they were copied.
 Log files can be specified in config.json. By default, only the "live" logs are 
 saved. pass the argument "-a" or "--all" to copy the full archive, e.g. `python get_logs.py 192.168.24.101 -a`
 
+On completing the log transfer, the save location is copied to the clipboard (so if saving to Calrec network can 
+control+v/paste it into a Jira ticket), and will open file explorer at that location if user accepts.
+
 ## config.json
 An optional configuration file containing IP address/es, locations of "live" and "all" log files, as well as the 
 preferred and alternative save locations. Note, the keys for IP addresses are arbitrary, you can change the keys
@@ -66,7 +69,6 @@ Setup for Python argparse library to handle CLI arguments
 Some CLI formatting and user input handling
 
 ## TODO
-- [ ] Copy save path to clipboard
 - [ ] Compile get_logs.py as a .exe to run on machines without Python
 - [ ] Consider Python Paramiko & SCP libraries instead of depending on PuTTy, 
   then can auto-accept key changes and might be able to auto-enter password for scp transfer
