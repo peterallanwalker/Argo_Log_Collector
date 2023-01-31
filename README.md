@@ -52,7 +52,7 @@ Log files can be specified in config.json. By default, only the "live" logs are
 saved. pass the argument "-a" or "--all" to copy the full archive, e.g. `python get_logs.py 192.168.24.101 -a`
 
 On completing the log transfer, the save location is copied to the clipboard (so if saving to Calrec network can 
-control+v paste it into a Jira ticket), and will open file explorer at that location if user accepts.
+control+v/paste it into a Jira ticket), and will open file explorer at that location if user accepts.
 
 ## config.json
 An optional configuration file containing IP address/es, locations of "live" and "all" log files, as well as the 
