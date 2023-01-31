@@ -4,6 +4,9 @@
 
 A Python3 script, tested on Windows 10 & 11.
 
+
+Alternatively use `get_logs.exe` to run on Windows without Python (same args ect below, substitute "get_logs.py" with "get_logs.exe".
+
 ### Dependencies
 PuTTy/PSCP - Windows does not have support for SCP by default. PSCP gets installed as part of PuTTy installation 
 so get_logs.py will work on Windows machines that have PuTTy installed. Download from https://putty.org/ Alternatively, 
