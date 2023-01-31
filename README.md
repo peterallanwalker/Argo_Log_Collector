@@ -77,5 +77,7 @@ Some CLI formatting and user input handling
   then can auto-accept key changes and might be able to auto-enter password for scp transfer
   
   Look into https://unix.stackexchange.com/questions/33271/how-to-avoid-ssh-asking-permission
+  
+  https://www.putorius.net/automatically-accept-ssh-fingerprint.html
 
   
