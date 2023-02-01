@@ -80,9 +80,17 @@ Some CLI formatting and user input handling
   
   https://www.putorius.net/automatically-accept-ssh-fingerprint.html
 
+look for pscp.exe documentation or source code
+
 ```[mcherisi@putor ~]$ ssh -o "StrictHostKeyChecking no" fenrir
 Warning: Permanently added 'fenrir,10.0.0.5' (ECDSA) to the list of known hosts.
 ok
 [mcherisi@Fenrir ~]$ ```
+
+... for auto-enter password might be abke to jsut copy it to clipboard for pasting, could do that for fingerprint 
+changes as well.
+
+... packagae a complete python standard lib version before adding in any externals, separate the exe, provide 
+"installation" instrucutions...
 
   

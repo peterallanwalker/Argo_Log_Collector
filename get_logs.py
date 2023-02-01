@@ -131,6 +131,9 @@ if __name__ == '__main__':
         #        Need sftp, or maybe just read file contents using cat or something linux via ssh and copy output...
         #        would be interesting to see how much slower it is?
 
+        # TODO - test pasting password
+        copy_to_clipboard("M0ntana")
+
         try:
             # Send SCP command from windows to copy target folder to local location
             # subprocess.check_output(scp_command, shell=True)  # TODO check the shell=True part needed/purpose
