@@ -13,9 +13,11 @@ PuTTy/PSCP - Windows does not have support for SCP by default. PSCP gets install
 so get_logs.py will work on Windows machines that have PuTTy installed. Download from https://putty.org/ Alternatively, 
 if not wanting to install PuTTy, you should be able to just install pscp.exe on its own (but I've not tested that). 
 
-(Argo section processors do not currently support SFTP, hence need to use SCP)
+(Argo section processors do not currently support SFTP, hence need to use SCP.)
 
-Python standard library - os, sys, subprocess, time.
+Python standard library - os, sys, subprocess, time. 
+
+This script uses standard Python - no external external modules need installing (just need the local files below in the same folder).
 
 Local file imports - cli_utils.py, cli_arg_parser.py, settings.py
 
