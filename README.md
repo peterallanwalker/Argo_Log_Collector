@@ -51,9 +51,9 @@ then the alternative save location is checked. If no config.json or valid save l
 saving to the same location as the script (within a sub-folder if specified from CLI a argument or user prompt).
 
 log files are saved within the save location / sub-folder in a folder named with the IP address of the device,
-and prefixed with a timestamp of when they were copied. 
+and suffixed with a timestamp of when they were copied. 
 
-Log files can be specified in config.json. By default, only the "live" logs are 
+Log files to save can be specified in config.json. By default, only the "live" logs are 
 saved. pass the argument "-a" or "--all" to copy the full archive, e.g. `python get_logs.py 192.168.24.101 -a`
 
 On completing the log transfer, the save location is copied to the clipboard (so if saving to Calrec network can 
@@ -73,32 +73,3 @@ Setup for Python argparse library to handle CLI arguments
 ## cli_utils
 Some CLI formatting and user input handling
 
-## TODO
-- [ ] Consider Python Paramiko & SCP libraries instead of depending on PuTTy, 
-  then can auto-accept key changes and might be able to auto-enter password for scp transfer
-  
-  Look into https://unix.stackexchange.com/questions/33271/how-to-avoid-ssh-asking-permission
-  
-  https://www.putorius.net/automatically-accept-ssh-fingerprint.html
-
-look for pscp.exe documentation or source code
-https://the.earth.li/~sgtatham/putty/0.78/htmldoc/Chapter5.html#pscp-usage
-
-`-pwfile file`   login with password read from specified file
-
-```
-[mcherisi@putor ~]$ ssh -o "StrictHostKeyChecking no" fenrir
-Warning: Permanently added 'fenrir,10.0.0.5' (ECDSA) to the list of known hosts.
-ok
-[mcherisi@Fenrir ~]$ 
-```
-
-... for auto-enter password might be abke to jsut copy it to clipboard for pasting, could do that for fingerprint 
-changes as well.
-
-... packagae a complete python standard lib version before adding in any externals, separate the exe, provide 
-"installation" instrucutions...
-
-... Look at core log structure, it takes like 10 mins or more to get the 2G ful archive using COnfigure
-
-  
