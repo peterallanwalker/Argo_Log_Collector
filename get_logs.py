@@ -8,16 +8,14 @@ import subprocess
 import time
 
 # Local files
-from lib import cli_arg_parser, cli_utils, settings
+from local_lib import cli_arg_parser, cli_utils, settings
 
 TITLE = "Argo Log Collector"
 VERSION = 1.0
 
 USER = 'root'
-LIVE_LOG_LOCATION = '/var/lib/calrec/log/live'  # Default to use if not specified in config.json
-
-#  - External configuration file
-CONFIG = 'config.json'
+LIVE_LOG_LOCATION = '/var/local_lib/calrec/log/live'  # Default to use if not specified in config.json
+CONFIG = 'config.json'  # External configuration file
 
 
 def get_address(cli_args, conf):
@@ -53,21 +51,24 @@ def get_address(cli_args, conf):
 
 
 def get_log_location(cli_args, conf):
+    # If user asked for all logs (-a / --all passed from cli), check if we have a file path in config.json
     if cli_args.all:
         try:
             return conf["logs_to_get"]["all"]
         except KeyError as e:
             print(f'key error in {CONFIG}, cannot find {e}')
+    # Else check config.json for a path to "live"
     try:
         return conf["logs_to_get"]["live"]
     except KeyError as e:
         print(f'key error in {CONFIG}, cannot find {e}')
-    # If cannot parse from settings use default
+    # If cannot parse from config.json, just use default
     return LIVE_LOG_LOCATION
 
 
 def copy_to_clipboard(txt):
-    # This is probably Windows only, could use pyperclip but not relying on external non-standard libs in this so far
+    # This is probably Windows only, could use pyperclip for any OS,
+    # but not relying on external non-standard Python libs in this so far
     cmd = 'echo ' + txt.strip() + ' | clip'
     try:
         subprocess.check_call(cmd, shell=True)
@@ -90,14 +91,14 @@ if __name__ == '__main__':
     if save_to == '.':
         save_to = os.getcwd()  # Just so we can inform the user of the full path to the local folder
         
-    save_to = os.path.realpath(save_to) # Fix back/forward slashes
+    save_to = os.path.realpath(save_to)  # Fix any back/forward slashes (Win vs Linux)
 
     # Get target device's IP address
     address = get_address(args, config)
 
     log_location = get_log_location(args, config)
 
-    # If user did not pass a folder name as an argument
+    # If user did not pass a folder name as an argument, ask to confirm
     if not args.folder:
         args.folder = input(f'Save logs to (enter or add existing or new sub folder): {save_to}\\')
 
@@ -117,14 +118,6 @@ if __name__ == '__main__':
         scp_command = 'scp -r '  # - Use '-r' "recursive" to be able to transfer folders/contents not just a single file
         scp_command += USER + '@' + address + ":" + log_location + " " + save_as
 
-        # TODO - figure out how to auto-enter password, can with ssh so maybe ssh in and run scp on opposite end
-        #        ...  but will then need need to enter local windows credentials...
-        #        Need sftp, or maybe just read file contents using cat or something linux via ssh and copy output...
-        #        would be interesting to see how much slower it is?
-
-        # TODO - test pasting password
-        copy_to_clipboard("M0ntana")   # does not seem to accept this, so look at passing the password file
-
         try:
             # Send SCP command from windows to copy target folder to local location
             # subprocess.check_output(scp_command, shell=True)
@@ -135,10 +128,11 @@ if __name__ == '__main__':
             # SCP failed, usually due to SSH timeout / cannot connect
             sys.exit()
 
+        # Copy te save location so it can be pasted e.g. into a Jira ticket
         copy_to_clipboard(save_as)
 
         if cli_utils.user_confirm("View in explorer? "):
-            # - Open file explorer, showing the folder just copied
+            # - Open file explorer, showing the folder just copied the logs to
             subprocess.Popen(f'explorer {save_as}')
     else:
         print("Cancelled transfer")
