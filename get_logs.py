@@ -8,16 +8,13 @@ import subprocess
 import time
 
 # Local files
-import cli_utils
-import cli_arg_parser
-import settings
-
+from lib import cli_arg_parser, cli_utils, settings
 
 TITLE = "Argo Log Collector"
 VERSION = 1.0
 
 USER = 'root'
-LIVE_LOG_LOCATION = '/var/lib/calrec/log/live'
+LIVE_LOG_LOCATION = '/var/lib/calrec/log/live'  # Default to use if not specified in config.json
 
 #  - External configuration file
 CONFIG = 'config.json'
@@ -120,32 +117,22 @@ if __name__ == '__main__':
         scp_command = 'scp -r '  # - Use '-r' "recursive" to be able to transfer folders/contents not just a single file
         scp_command += USER + '@' + address + ":" + log_location + " " + save_as
 
-        # TODO - TEST, override manual key acceptance (might only work on ssh not scp),
-        #        Need to connect to new IP address or a device on an address that was last used to connect with a
-        #        different device that had that same address
-        print("TEST! line 127")
-        scp_command = '-o "StrictHostKeyChecking no"' + scp_command
-
         # TODO - figure out how to auto-enter password, can with ssh so maybe ssh in and run scp on opposite end
         #        ...  but will then need need to enter local windows credentials...
         #        Need sftp, or maybe just read file contents using cat or something linux via ssh and copy output...
         #        would be interesting to see how much slower it is?
 
         # TODO - test pasting password
-        copy_to_clipboard("M0ntana")
+        copy_to_clipboard("M0ntana")   # does not seem to accept this, so look at passing the password file
 
         try:
             # Send SCP command from windows to copy target folder to local location
-            # subprocess.check_output(scp_command, shell=True)  # TODO check the shell=True part needed/purpose
+            # subprocess.check_output(scp_command, shell=True)
             subprocess.check_output(scp_command)
-            # If successful, user may be prompted to accept/trust
-            # (if the IP address had a different MAC address last time?),
-            # and to enter password... I don't seem to be able to do either automatically using subprocess.check_output
             print('Done.')
 
         except subprocess.CalledProcessError as e:
-            # print(e)  # Not needed for timeout, ssh exception prints error
-            # TODO, if scp is using an underlying ssh lib, make sure my ssh module does not create a naming conflict
+            # SCP failed, usually due to SSH timeout / cannot connect
             sys.exit()
 
         copy_to_clipboard(save_as)
@@ -156,4 +143,3 @@ if __name__ == '__main__':
     else:
         print("Cancelled transfer")
         sys.exit()
-
