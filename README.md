@@ -4,8 +4,7 @@
 
 A Python3 script, tested on Windows 10 & 11.
 
-
-Alternatively, get the full `dist` folder and use `get_logs.exe` to run on Windows without Python 
+Alternatively, get the full `dist\get_logs` folder and use the `get_logs.exe` within to run on Windows without Python 
 (same usage/args etc as below, just substitute "get_logs.py" with "get_logs").
 
 ### Dependencies
