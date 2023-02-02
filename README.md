@@ -14,9 +14,7 @@ if not wanting to install PuTTy, you should be able to just install pscp.exe on 
 
 (Argo section processors do not currently support SFTP, hence need to use SCP.)
 
-Python standard library - os, sys, subprocess, time. 
-
-This script uses standard Python - no external external modules need installing (just need the local files below in the same folder).
+This script uses standard Python - no external external modules need installing (just need the local files below in the `local_lib` folder).
 
 Local file imports - cli_utils.py, cli_arg_parser.py, settings.py
 
