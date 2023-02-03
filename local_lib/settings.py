@@ -6,7 +6,7 @@ import os
 import json
 
 # Local files
-import cli_utils
+from local_lib import cli_utils
 
 TITLE = "Settings"
 DESCRIPTION = "Settings handler for get_logs.py"

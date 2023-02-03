@@ -7,7 +7,7 @@
 import argparse
 
 # Local files
-import cli_utils
+from local_lib import cli_utils
 
 TITLE = "CLI ARGUMENT PARSER"
 VERSION = 0.1
