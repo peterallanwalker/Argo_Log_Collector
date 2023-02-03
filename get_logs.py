@@ -13,7 +13,7 @@ import cli_utils
 import cli_arg_parser
 
 TITLE = "Argo Log Collector"
-VERSION = 1.0
+VERSION = 1.1
 
 USER = 'root'
 LIVE_LOG_LOCATION = '/var/local_lib/calrec/log/live'  # Default to use if not specified in config.json
@@ -68,6 +68,33 @@ def get_log_location(cli_args, conf):
     return LIVE_LOG_LOCATION
 
 
+def get_save_location(cli_args, conf):
+    """
+    Checks settings for save location/s and whether they exist/are accessible,
+    Returns the preferred address if valid, else the alternative or "." if no valid path found in settings
+    :param conf: dictionary of settings
+    :param cli_args: object of type argparse.ArgumentParser()
+    :return: string, file path
+    """
+    if not cli_args.local:
+        try:
+            if os.path.exists(conf["save_to"]["default"]):
+                return conf["save_to"]["default"]
+            print(f'Cannot find default save location: {conf["save_to"]["default"]}')
+        except KeyError as e:
+            print(f'Settings "save_to" key error, cannot find {e} in settings file')
+
+    try:
+        if os.path.exists(conf["save_to"]["alt"]):
+            return conf["save_to"]["alt"]
+        print(f'Cannot find alternative save location: {conf["save_to"]["alt"]}')
+
+    except KeyError as e:
+        print(f'Settings "save_to" key error, cannot find {e} in settings file')
+        # Default to current folder
+        return "."
+
+
 def copy_to_clipboard(txt):
     # This is probably Windows only, could use pyperclip for any OS,
     # but not relying on external non-standard Python libs in this so far
@@ -88,7 +115,8 @@ if __name__ == '__main__':
 
     # Load settings
     config = settings.load_settings(CONFIG)
-    save_to = settings.get_save_location(config)
+    log_location = get_log_location(args, config)
+    save_to = get_save_location(args, config)
 
     if save_to == '.':
         save_to = os.getcwd()  # Just so we can inform the user of the full path to the local folder
@@ -97,8 +125,6 @@ if __name__ == '__main__':
 
     # Get target device's IP address
     address = get_address(args, config)
-
-    log_location = get_log_location(args, config)
 
     # If user did not pass a folder name as an argument, ask to confirm
     if not args.folder:

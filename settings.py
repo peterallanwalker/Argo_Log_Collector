@@ -74,30 +74,6 @@ def load_settings(config_file):
         return {}
 
 
-def get_save_location(config):
-    """
-    Checks settings for save location/s and whether they exist/are accessible,
-    Returns the preferred address if valid, else the alternative or "." if no valid path found in settings
-    :param config: dictionary of settings
-    :return: string, file path
-    """
-    try:
-        if os.path.exists(config["save_to"]["default"]):
-            return config["save_to"]["default"]
-        print(f'Cannot find default save location: {config["save_to"]["default"]}')
-    except KeyError as e:
-        print(f'Settings "save_to" key error, cannot find {e} in settings file')
-
-    try:
-        if os.path.exists(config["save_to"]["alt"]):
-            return config["save_to"]["alt"]
-        print(f'Cannot find alternative save location: {config["save_to"]["alt"]}')
-    except KeyError as e:
-        print(f'Settings "save_to" key error, cannot find {e} in settings file')
-        # Default to current folder
-        return "."
-
-
 if __name__ == '__main__':
     CONFIG_FILE = "config.json"
     cli_utils.print_header(TITLE, VERSION, DESCRIPTION)
@@ -115,7 +91,5 @@ if __name__ == '__main__':
 
     else:
         print("No Settings")
-
-    print("\nSave location:", get_save_location(settings))
 
     print("Done")
