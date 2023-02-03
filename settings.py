@@ -6,7 +6,7 @@ import os
 import json
 
 # Local files
-from local_lib import cli_utils
+import cli_utils
 
 TITLE = "Settings"
 DESCRIPTION = "Settings handler for get_logs.py"
@@ -99,7 +99,7 @@ def get_save_location(config):
 
 
 if __name__ == '__main__':
-    CONFIG_FILE = "../config.json"
+    CONFIG_FILE = "config.json"
     cli_utils.print_header(TITLE, VERSION, DESCRIPTION)
 
     print("Tests...")

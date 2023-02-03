@@ -8,7 +8,9 @@ import subprocess
 import time
 
 # Local files
-from local_lib import cli_arg_parser, cli_utils, settings
+import settings
+import cli_utils
+import cli_arg_parser
 
 TITLE = "Argo Log Collector"
 VERSION = 1.0
@@ -72,7 +74,7 @@ def copy_to_clipboard(txt):
     cmd = 'echo ' + txt.strip() + ' | clip'
     try:
         subprocess.check_call(cmd, shell=True)
-        print("save location path is copied to your clipboard (control+v it into Jira!)")
+        print(f'{txt} save to your clipboard (control+v paste it into your bug report')
     except:
         print("failed to copy to clipboard, what OS is this?")
 
