@@ -53,10 +53,10 @@ log files are saved within the save location / sub-folder in a folder named with
 and suffixed with a timestamp of when they were copied. 
 
 Log files to save can be specified in config.json. By default, only the "live" logs are 
-saved. pass the argument "-a" or "--all" to copy the full archive, e.g. `python get_logs.py 192.168.24.101 -a`
+saved. pass the argument `"-a"` or `"--all"` to copy the full archive, e.g. `python get_logs.py 192.168.24.101 -a`
 
 The "default" save to location in the supplied config.json is a network location. If you want to save to the "alt"
-location pass the argument "-l" or "--local". This will speed things up if you are not connected to the network 
+location pass the argument `"-l"` or `"--local"`. This will speed things up if you are not connected to the network 
 location by skipping the connectivity check. You can edit the default save location in config.json to avoid needing this
 
 On completing the log transfer, the save location is copied to the clipboard (so if saving to Calrec network can 
