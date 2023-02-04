@@ -1,5 +1,7 @@
 # Argo Log Collector
 
+[Download Argo Log Collector V1.1.zip](https://github.com/peterallanwalker/Argo_Log_Collector/archive/refs/heads/V1.1.zip)
+
 ## get_logs.py - The main script, copies log files from Argo systems.
 
 A Python3 script, tested on Windows 10 & 11.
