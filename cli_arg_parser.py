@@ -14,8 +14,9 @@ VERSION = 0.1
 DESCRIPTION = "Configures argparse for get_logs.py"
 
 
-def configure_argparse():
+def configure_argparse(description=""):
     parser = argparse.ArgumentParser()
+    parser.description = description
     # Optional but positional arguments
     parser.add_argument("address", nargs='?', help="IP address of the target device", type=str)
     parser.add_argument("folder", nargs='?', help="Folder to save log files to", type=str)
@@ -34,7 +35,7 @@ if __name__ == '__main__':
 
     cli_utils.print_header(TITLE, VERSION, DESCRIPTION)
 
-    arg_parser = configure_argparse()
+    arg_parser = configure_argparse("desciption / usage text")
     args = arg_parser.parse_args()
     print("Unit tests...")
     print("Address:", args.address)

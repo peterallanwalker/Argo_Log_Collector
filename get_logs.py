@@ -14,7 +14,7 @@ import cli_arg_parser
 
 TITLE = "Argo Log Collector"
 VERSION = 1.1
-
+README = "https://github.com/peterallanwalker/Argo_Log_Collector/blob/master/README.md#usage"
 USER = 'root'
 LIVE_LOG_LOCATION = '/var/local_lib/calrec/log/live'  # Default to use if not specified in config.json
 CONFIG = 'config.json'  # External configuration file
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     cli_utils.print_header(TITLE, VERSION)
 
     # Setup & parse command line arguments
-    arg_parser = cli_arg_parser.configure_argparse()
+    arg_parser = cli_arg_parser.configure_argparse(README)
     args = arg_parser.parse_args()
 
     # Load settings
