@@ -29,7 +29,7 @@ get_logs.py can be run with no arguments, with or without a config.json file.
 If no arguments are passed, it will check if a config.json file exists in the same folder and contains a 
 default IP address to use. If a default address is not found, the user is prompted to enter one.
 
-pass `-h` or `--help` to get more info. 
+pass `-h` or `--help` to get usage info. 
 
 Pass an IP address when running the program to get logs from a specific IP address, 
 e.g. `python get_logs.py 192.168.24.101`
