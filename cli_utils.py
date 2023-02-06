@@ -38,8 +38,8 @@ def user_confirm(prompt, enter=True):
     """
     Prompt user to confirm an action
     :param prompt: string, text to question/prompt the user for confirmation
-    :param enter: bool, if True user can simply press enter as affirmative/confirmation
-    :return: bool, True if user provide affirmative, False otherwise
+    :param enter: bool, if True user can simply press enter as confirmation
+    :return: bool, True if user provides confirmation, False otherwise
     """
     response = input(f'{prompt} (y/n)?: ')
     if response.lower().strip() in ("y", "yes") or (response == "" and enter):
